@@ -4,7 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACE TRUNKERS</title>
-    <style>
+        <style>
+        .menu-container {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+        }
+
+        .menu-item {
+            flex-shrink: 0;
+            flex-grow: 1;
+            scroll-snap-align: start;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .menu-item:focus,
+        .menu-item:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    </style>
+	<style>
         body {
             margin: 0;
             padding: 0;
@@ -75,7 +99,21 @@
         <div class="slide"></div>
         <div class="slide"></div>
     </div>
+    <div class="menu-container">
+        <div class="menu-item" tabindex="0" id="history">History</div>
+        <div class="menu-item" tabindex="0" id="current-squad">Current Squad</div>
+        <div class="menu-item" tabindex="0" id="match-booking">Match Booking</div>
+        <div class="menu-item" tabindex="0" id="support">Support</div>
+    </div>
+	    <script>
+        const menuItems = document.querySelectorAll('.menu-item');
 
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
     <nav class="navbar">
         <a href="#history" class="nav-link">History</a>
         <a href="#current-squad" class="nav-link">Current Squad</a>

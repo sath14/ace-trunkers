@@ -6,21 +6,55 @@
     <title>ACE TRUNKERS</title>
         <style>
         .menu-container {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.3);
             display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-            scroll-behavior: smooth;
-            scroll-snap-type: x mandatory;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu-button {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            color: white;
+            padding: 0 10px;
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            outline: none;
+        }
+
+        .menu-items {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: height 0.3s ease;
         }
 
         .menu-item {
-            flex-shrink: 0;
-            flex-grow: 1;
-            scroll-snap-align: start;
             padding: 10px;
             text-align: center;
             cursor: pointer;
             user-select: none;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
         }
 
         .menu-item:focus,
@@ -93,45 +127,57 @@
     </style>
 </head>
 <body>
-    <div class="slideshow-container">
+     <div class="menu-container">
+        <button class="menu-button" tabindex="0" aria-haspopup="true" aria-expanded="false">
+            Menu
+        </button>
+        <div class="menu-items">
+            <div class="menu-item" tabindex="0" id="history">History</div>
+            <div class="menu-item" tabindex="0" id="current-squad">Current Squad</div>
+            <div class="menu-item" tabindex="0" id="match-booking">Match Booking</div>
+            <div class="menu-item" tabindex="0" id="support">Support</div>
+        </div>
+    </div>
+   
+	<div class="slideshow-container">
         <div class="slide"></div>
         <div class="slide"></div>
         <div class="slide"></div>
         <div class="slide"></div>
     </div>
-    <div class="menu-container">
-        <div class="menu-item" tabindex="0" id="history">History</div>
-        <div class="menu-item" tabindex="0" id="current-squad">Current Squad</div>
-        <div class="menu-item" tabindex="0" id="match-booking">Match Booking</div>
-        <div class="menu-item" tabindex="0" id="support">Support</div>
-    </div>
-	    <script>
-        const menuItems = document.querySelectorAll('.menu-item');
+    <script>
+        const menuButton = document.querySelector('.menu-button');
+        const menuItems = document.querySelector('.menu-items');
 
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                item.scrollIntoView({ behavior: 'smooth' });
-            });
+        menuButton.addEventListener('click', () => {
+            if (menuItems.style.height === '0px') {
+                menuItems.style.height = '150px';
+                menuButton.setAttribute('aria-expanded', 'true');
+            } else {
+                menuItems.style.height = '0px';
+                menuButton.setAttribute('aria-expanded', 'false');
+            }
         });
-    </script>
+
+        menuItems.addEventListener('focusout', () => {
+            menuItems.style.height = '0px';
+            menuButton.setAttribute('aria-expanded', 'false');
+        });
+
+        menuItems.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                menuItems.style.height = '0px';
+                menuButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        menuItems.querySelectorAll('.menu-item').forEach((item) => {
+            item.addEventListener('
+
    
 
     <main>
-        <section id="history">
-            <!-- Content for history -->
-        </section>
 
-        <section id="current-squad">
-            <!-- Content for current squad -->
-        </section>
-
-        <section id="match-booking">
-            <!-- Content for match booking -->
-        </section>
-
-        <section id="support">
-            <!-- Content for support -->
-        </section>
     </main>
 </body>
 </html>
